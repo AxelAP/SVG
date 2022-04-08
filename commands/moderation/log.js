@@ -3,7 +3,7 @@ const logSchema = require("../../models/logSchema");
 module.exports = {
   name: "log",
   aliases: [`log`],
-  description: "Activa/Desactiva los logs para un server",
+  description: "Activa/Desactiva los logs para el server",
   async execute(client, message, args, discord) {
     if (!message.member.permissions.has(["ADMINISTRATOR"])) {
       return message.channel.send("No tienes los permisos necesarios");

@@ -1,31 +1,27 @@
-const gifSchema = require("../../models/gifSchema");
-const Tenor = require("tenorjs").client({
-  Key: `${process.env.TENORKEY}`, // https://tenor.com/developer/keyregistration
-  Filter: "off", // "off", "low", "medium", "high", not case sensitive
-  Locale: "en_US", // Your locale here, case-sensitivity depends on input
-  MediaFilter: "minimal", // either minimal or basic, not case sensitive
-  DateFormat: "D/MM/YYYY - H:mm:ss A", // Change this accordingly
+const imgSchema = require("../../models/imgSchema");
+const img = require("images-scraper");
+const google = new img({
+  puppeteer: {
+    headless: true,
+  },
 });
 
 module.exports = {
-  name: "gif",
-  aliases: [],
-  description: "Envia un gif buscado de tenor",
+  name: "img",
+  aliases: [`image`, `imagen`],
+  description: "Envia una imagen",
   async execute(client, message, args, discord) {
     let search = args.join(" ");
     if (!search) return message.channel.send("Debes agregar algo para buscar");
 
-    let gifs = [];
+    let images = [];
     let descriptions = [];
     let cont = 0;
 
-    let result = await Tenor.Search.Query(search, "50");
+    let result = await google.scrape(search, 100);
     result.forEach((res) => {
-      gifs[cont] = res.media[0].gif.url;
-      descriptions[cont] = res.content_description.substring(
-        0,
-        res.content_description.length - 4
-      );
+      images[cont] = res.url;
+      descriptions[cont] = res.title;
       cont++;
     });
 
@@ -35,22 +31,22 @@ module.exports = {
       .setColor("PURPLE")
       .setTitle(`Resultados de: ${search}`)
       .setDescription(descriptions[cont])
-      .setImage(gifs[cont])
+      .setImage(images[cont])
       .setFooter({
-        text: `Página: ${cont + 1}/${gifs.length} `,
+        text: `Página: ${cont + 1}/${images.length} `,
         iconURL: client.user.avatarURL(),
       });
 
     const btn1 = new discord.MessageButton()
-      .setCustomId("gif_prev")
+      .setCustomId("img_prev")
       .setLabel("Atrás")
       .setStyle("PRIMARY");
     const btn2 = new discord.MessageButton()
-      .setCustomId("gif_next")
+      .setCustomId("img_next")
       .setLabel("Siguiente")
       .setStyle("PRIMARY");
     const btn3 = new discord.MessageButton()
-      .setCustomId("gif_del")
+      .setCustomId("img_del")
       .setLabel("Borrar")
       .setStyle("DANGER");
 
@@ -60,11 +56,11 @@ module.exports = {
       .send({ embeds: [embed], components: [hRow] })
       .then(async (msg) => {
         try {
-          let gif = await gifSchema.create({
+          let img = await imgSchema.create({
             messageID: msg.id,
             userID: message.author.id,
             query: search,
-            gifs: gifs,
+            images: images,
             descriptions: descriptions,
             actual: cont,
             siguiente: cont + 1,
@@ -75,7 +71,7 @@ module.exports = {
               },
             ],
           });
-          gif.save();
+          img.save();
         } catch (error) {
           console.log(error);
         }

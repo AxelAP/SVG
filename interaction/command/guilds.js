@@ -1,8 +1,4 @@
-const { MessageEmbed } = require("discord.js");
-const { idAutor } = require("../../config");
-
 module.exports = async (client, discord, interaction) => {
-  const creator = client.users.cache.get(idAutor);
   const message = interaction.message;
 
   if (interaction.customId === "guilds_prev") {
@@ -25,7 +21,7 @@ module.exports = async (client, discord, interaction) => {
     let pag = parseInt(message.embeds[0].footer.text.slice(8, 9)) - 1;
     if (pag < 1) return interaction.deferUpdate();
 
-    let list1 = new MessageEmbed()
+    let list1 = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle(`Servers contados: **${client.guilds.cache.size}**`)
       .setDescription(`${text[pag - 1]}`)
@@ -57,7 +53,7 @@ module.exports = async (client, discord, interaction) => {
     let pag = parseInt(message.embeds[0].footer.text.slice(8, 9));
     if (pag > text.length - 1) return interaction.deferUpdate();
 
-    let list2 = new MessageEmbed()
+    let list2 = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle(`Servers contados: **${client.guilds.cache.size}**`)
       .setDescription(`${text[pag]}`)
@@ -70,6 +66,7 @@ module.exports = async (client, discord, interaction) => {
     return message.edit({ embeds: [list2] });
   }
   if (interaction.customId === "guilds_del") {
+    interaction.deferUpdate();
     return message.delete();
   }
 };

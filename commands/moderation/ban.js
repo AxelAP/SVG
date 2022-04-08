@@ -3,7 +3,7 @@ const { validMention } = require("../../useful");
 module.exports = {
   name: "ban",
   aliases: [`banear`],
-  description: "Expulsa a un usuario del server",
+  description: "Banea a un usuario del server",
   async execute(client, message, args, discord) {
     if (!message.member.permissions.has(["ADMINISTRATOR", "BAN_MEMBERS"]))
       return message.channel.send("No tienes los permisos necesarios");

@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const { idAutor } = require("../../config");
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
     let author = client.users.cache.get(idAutor);
     message.delete({ timeout: 10, reason: "Reporte" });
 
-    const report = new MessageEmbed()
+    const report = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle("**Reporte**")
       .setDescription(msg)

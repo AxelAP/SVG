@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const { validMention } = require("../../useful");
 
 module.exports = {
@@ -13,7 +12,7 @@ module.exports = {
     }
 
     let mention = message.mentions.users.first() || message.author;
-    let avatar = new MessageEmbed()
+    let avatar = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setDescription(`**Avatar de ${mention.tag}**`)
       .setImage(mention.displayAvatarURL({ size: 1024, dynamic: true }))

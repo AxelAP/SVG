@@ -4,7 +4,7 @@ const { randReply } = require("../../useful");
 module.exports = {
   name: "rol",
   aliases: [`sida`, `ida`],
-  description: "Muestra el ping del bot",
+  description: "Para los roles nose",
   async execute(client, message, args, discord) {
     if (message.guild.id !== idGuild) return;
     let savage = message.guild;

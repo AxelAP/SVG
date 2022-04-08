@@ -1,10 +1,9 @@
-const { MessageEmbed, MessageButton } = require("discord.js");
 let { autism } = require("../../config");
 
 module.exports = {
   name: "guilds",
   aliases: [`servers`, `ervers`],
-  description: "Muestra todos los servidores en los que esta el bot",
+  description: "Muestra la lista de servidores del bot",
   async execute(client, message, args, discord) {
     if (!autism.some((autism) => message.author.id === autism)) return;
 
@@ -24,7 +23,7 @@ module.exports = {
       n++;
     });
 
-    let list = new MessageEmbed()
+    let list = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle(`Servers contados: **${client.guilds.cache.size}**`)
       .setDescription(`${text[0]}`)
@@ -33,15 +32,15 @@ module.exports = {
         iconURL: client.user.avatarURL(),
       });
 
-    const btn1 = new MessageButton()
+    const btn1 = new discord.MessageButton()
       .setCustomId("guilds_prev")
       .setLabel("Atrás")
       .setStyle("PRIMARY");
-    const btn2 = new MessageButton()
+    const btn2 = new discord.MessageButton()
       .setCustomId("guilds_next")
       .setLabel("Siguiente")
       .setStyle("PRIMARY");
-    const btn3 = new MessageButton()
+    const btn3 = new discord.MessageButton()
       .setCustomId("guilds_del")
       .setLabel("Borrar")
       .setStyle("DANGER");

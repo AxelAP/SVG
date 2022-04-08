@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const YouTube = require("youtube-node");
 let youTube = new YouTube();
 
@@ -49,7 +48,7 @@ module.exports = {
             }
           }
 
-          let video = new MessageEmbed()
+          let video = new discord.MessageEmbed()
             .setColor("PURPLE")
             .setTimestamp()
             .setTitle(`${result.items[n]["snippet"].title}`)

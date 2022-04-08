@@ -3,6 +3,17 @@ module.exports = {
   idGuild: "633381497847545872",
   phDir: "./img",
 
+  categories: [
+    `General`,
+    `Moderation`,
+    `Normal`,
+    `Bot`,
+    `Savage`,
+    `Out of context`,
+    `Word`,
+    `Kicks`,
+  ],
+
   autism: [
     "389903026636324865", // Anton
     "417831950347141120", // Ab

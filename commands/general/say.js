@@ -1,7 +1,7 @@
 module.exports = {
   name: "say",
   aliases: [`ay`, `decir`],
-  description: "Repite una frase",
+  description: "Repite un comentario",
   async execute(client, message, args, discord) {
     let text = args.join(" ");
     text = text.replace("@everyone", "@|everyone");

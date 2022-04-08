@@ -3,7 +3,7 @@ const { autism, idGuild } = require("../../config");
 module.exports = {
   name: "unban",
   aliases: [],
-  description: "Auto unban para el servidor",
+  description: "Auto unban",
   async execute(client, message, args, discord) {
     if (!autism.some((autism) => message.author.id === autism)) return;
     let user = message.author.id;

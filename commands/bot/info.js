@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const { idAutor } = require("../../config");
 
 const moment = require("moment");
@@ -7,7 +6,7 @@ require("moment-duration-format");
 module.exports = {
   name: "info",
   aliases: [`informacion`, `botinfo`],
-  description: "Muestra información sobre el bot",
+  description: "Información sobre el bot",
   async execute(client, message, args, discord) {
     let creator = client.users.cache.get(idAutor);
     if (!creator) creator = "Xennxo#1625";
@@ -16,7 +15,7 @@ module.exports = {
       .duration(client.uptime)
       .format(" D [dias], H [hrs], m [mins], s [secs]");
 
-    let info = new MessageEmbed()
+    let info = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle(`**${client.user.username}**`)
       .setDescription(`Bot creado para SVG`)

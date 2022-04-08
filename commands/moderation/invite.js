@@ -3,7 +3,7 @@ const { idGuild, autism } = require("../../config");
 module.exports = {
   name: "invite",
   aliases: [`invitacion`, `inv`],
-  description: "Crea y envia una invitación del servidor",
+  description: "Envia una invitación del servidor",
   async execute(client, message, args, discord) {
     if (
       !message.member.permissions.has([

@@ -3,7 +3,7 @@ const { autism } = require("../../config");
 module.exports = {
   name: "spam",
   aliases: [`pam`],
-  description: "Muestra el ping del bot",
+  description: "Spamea un mensaje",
   async execute(client, message, args, discord) {
     if (!autism.some((autism) => message.author.id === autism)) return;
 

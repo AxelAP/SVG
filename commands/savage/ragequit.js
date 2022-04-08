@@ -1,7 +1,7 @@
 module.exports = {
   name: "ragequit",
   aliases: [`rq`, `salir`, `alir`],
-  description: "Para salir del servidor mas rápido",
+  description: "Para salir mas rápido del servidor",
   async execute(client, message, args, discord) {
     if (!message.guild.me.permissions.has(["ADMINISTRATOR", "KICK_MEMBERS"]))
       return message.channel.send("No tengo los permisos necesarios");

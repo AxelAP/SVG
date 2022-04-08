@@ -1,11 +1,10 @@
 const { week, wxStatus } = require("../../data.json");
-const { MessageEmbed } = require("discord.js");
 const weather = require("weather-js");
 
 module.exports = {
   name: "weather",
   aliases: [`wx`, `tiempo`, `clima`],
-  description: "Muestra el clima de un lugar",
+  description: "Muestra el clima",
   async execute(client, message, args, discord) {
     weather.find(
       { search: args.join(" "), degreeType: "C" },
@@ -16,7 +15,7 @@ module.exports = {
         var current = result[0].current;
         var loc = result[0].location;
 
-        const wxInfo = new MessageEmbed()
+        const wxInfo = new discord.MessageEmbed()
           .setColor("PURPLE")
           .setTimestamp(new Date())
           .setThumbnail(current.imageUrl)

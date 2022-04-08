@@ -4,7 +4,7 @@ let { autism } = require("../../config");
 module.exports = {
   name: "reply",
   aliases: [`respuesta`],
-  description: "Añade una nueva respuesta para el bot",
+  description: "Añade una respuesta para el bot",
   async execute(client, message, args, discord) {
     if (!autism.some((autism) => message.author.id === autism)) return;
     if (!args[0]) return message.channel.send(`Debes agregar un mensaje`);

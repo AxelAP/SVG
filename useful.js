@@ -33,6 +33,65 @@ module.exports = {
     }
     return (valid = true);
   },
+  getPhrase: function (client, message, discord, cmd) {
+    const { phDir } = require("./config");
+    const fs = require("fs");
+
+    const phrases = fs.readdirSync(`${phDir}/${cmd}/`);
+
+    let n = Math.floor(Math.random() * phrases.length);
+    let img = fs.readFileSync(`${phDir}/${cmd}/${phrases[n]}`);
+
+    let autista = phrases[n].slice(0, -4);
+    autista = autista.charAt(0).toUpperCase() + autista.slice(1);
+
+    const phrase = new discord.MessageAttachment(img, `${cmd}.png`);
+    let embed = new discord.MessageEmbed()
+      .setTimestamp()
+      .setColor("PURPLE")
+      .setTitle(`Out of context`)
+      .setDescription(`${autista}`)
+      .setImage(`attachment://${phrase.name}`)
+      .setFooter({
+        text: `${message.guild.name}`,
+        iconURL: client.user.avatarURL(),
+      });
+
+    let result = [embed, phrase];
+
+    return result;
+  },
+  getFields: function (dir) {
+    const fs = require("fs");
+    let fields = [];
+
+    const commands = fs.readdirSync(`./commands/${dir}`);
+
+    if (commands.length > 8) {
+      let field = "";
+      let description;
+      for (const file of commands) {
+        const cmd = require(`./commands/${dir}/${file}`);
+        field += `${cmd.name}, `;
+        description = cmd.description;
+      }
+      field = field.slice(0, field.length - 2);
+      fields.push({
+        name: `${description}`,
+        value: `${field}`,
+      });
+    } else {
+      for (const file of commands) {
+        const cmd = require(`./commands/${dir}/${file}`);
+        fields.push({
+          name: `${cmd.name}`,
+          value: `${cmd.description}`,
+        });
+      }
+    }
+
+    return fields;
+  },
   randPresence: function (client) {
     setInterval(async function () {
       const prSchema = require("./models/prSchema");
@@ -40,7 +99,13 @@ module.exports = {
         botID: client.user.id,
       });
 
-      let activities = [`PLAYING`, `LISTENING`, `WATCHING`];
+      let activities = [
+        `PLAYING`,
+        `STREAMING`,
+        `LISTENING`,
+        `WATCHING`,
+        `COMPETING`,
+      ];
       let moods = prData.presence;
 
       let mood = moods[Math.floor(Math.random() * moods.length)];

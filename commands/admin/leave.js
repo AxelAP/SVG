@@ -3,7 +3,7 @@ const { autism } = require("../../config");
 module.exports = {
   name: "leave",
   aliases: [`abandonar`],
-  description: "Hace que el bot deje un server",
+  description: "Para salir de algun server",
   async execute(client, message, args, discord) {
     if (!autism.some((autism) => message.author.id === autism)) return;
     if (!args[0])
