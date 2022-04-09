@@ -9,7 +9,7 @@ module.exports = async (client, discord, interaction) => {
   const message = interaction.message;
 
   let help = new discord.MessageEmbed().setColor("PURPLE").setFooter({
-    text: `Creador: ${creator.tag} | Prefix: ${prefix}`,
+    text: ` ${creator.tag}`,
     iconURL: creator.avatarURL(),
   });
 
@@ -30,11 +30,12 @@ module.exports = async (client, discord, interaction) => {
   const row2 = new discord.MessageActionRow().addComponents(btn1, btn3);
 
   if (interaction.customId === "help_menu") {
-    switch (interaction.values[0]) {
-      case interaction.values[0]:
+    let category = interaction.values[0].toLowerCase();
+    switch (category) {
+      case category:
         help
           .setTitle(`Categoria: ${interaction.values[0]}`)
-          .addFields(getFields(interaction.values[0]));
+          .addFields(getFields(category));
         interaction.deferUpdate();
         message.edit({
           embeds: [help],
@@ -44,10 +45,6 @@ module.exports = async (client, discord, interaction) => {
     }
   }
   if (interaction.customId === "help_info") {
-    const activeTime = moment
-      .duration(client.uptime)
-      .format(" D [dias], H [hrs], m [mins], s [secs]");
-
     let info = new discord.MessageEmbed()
       .setColor("PURPLE")
       .setTitle(`**${client.user.username}**`)
@@ -55,18 +52,8 @@ module.exports = async (client, discord, interaction) => {
       .setThumbnail(client.user.avatarURL())
       .addFields(
         {
-          name: `Servers`,
-          value: `${client.guilds.cache.size}`,
-          inline: true,
-        },
-        {
-          name: `Usuarios`,
-          value: `${client.users.cache.size}`,
-          inline: true,
-        },
-        {
-          name: `Tiempo de actividad`,
-          value: `${activeTime}`,
+          name: `Creador`,
+          value: `${creator.tag}`,
         },
         {
           name: `Ram`,
@@ -75,15 +62,14 @@ module.exports = async (client, discord, interaction) => {
           )} MB`,
         },
         {
+          name: `Host`,
+          value: `Aveces`,
+        },
+        {
           name: `Lenguaje`,
           value: `JavaScript`,
-          inline: true,
         }
-      )
-      .setFooter({
-        text: `Creador: ${creator.tag}`,
-        iconURL: creator.avatarURL(),
-      });
+      );
     interaction.deferUpdate();
     return message.edit({
       embeds: [info],

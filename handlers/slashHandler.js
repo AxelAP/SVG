@@ -2,14 +2,14 @@ const fs = require("fs");
 let slash = [];
 
 module.exports = (client, discord) => {
-  fs.readdirSync("./slashCommands/").forEach((dir) => {
+  fs.readdirSync("./slash/").forEach((dir) => {
     const commands = fs
-      .readdirSync(`./slashCommands/${dir}/`)
+      .readdirSync(`./slash/${dir}/`)
       .filter((file) => file.endsWith(".js"));
 
     for (const file of commands) {
       try {
-        let scmd = require(`../slashCommands/${dir}/${file}`);
+        let scmd = require(`../slash/${dir}/${file}`);
 
         if (scmd.name) {
           client.slash.set(scmd.name, scmd);

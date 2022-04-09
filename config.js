@@ -6,12 +6,11 @@ module.exports = {
   categories: [
     `General`,
     `Moderation`,
-    `Normal`,
     `Bot`,
-    `Savage`,
-    `Out of context`,
     `Word`,
+    `Savage`,
     `Kicks`,
+    `Out of context`,
   ],
 
   autism: [
